@@ -12,6 +12,9 @@ respaldos/
 recursos-moodle/
 asignaciones-pendientes/
 historial.md
+# En Windows git no distingue mayúsculas: la regla de arriba ocultaba HISTORIAL.md,
+# que sí debe subirse (lo pide el kit).
+!HISTORIAL.md
 
 # Secretos y configuración local
 .env
