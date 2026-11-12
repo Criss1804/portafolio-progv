@@ -22,6 +22,15 @@
 - Diseño minimalista claro preparado en local (portada simple, acento azul), **sin subir todavía**: decidí dejar el diseño para el final.
 - **Pendiente:** Render (Fase 6), `config.js`, capturas, diseño final, revisar en el celular.
 
+## 12/11/2026 — Laboratorios en vivo en Render (Fase 6)
+
+- Cuenta de Render creada por mí con GitHub (correo verificado).
+- Servicio web `progv-criss1804` desde el repositorio público, Docker, región Virginia, plan **Free ($0 / month · 0.1 CPU · 512 MB)**. Sin tarjeta.
+- `https://progv-criss1804.onrender.com/api/estado` → `"ok":true` (JDK 21 y Tomcat disponibles). La raíz responde 200.
+- CORS correcto: el servidor responde `access-control-allow-origin: https://criss1804.github.io`.
+- `portafolio/web/js/config.js` apunta al servidor de Render.
+- **Pendiente:** probar el lab 1 y un lab con servidor desde la página publicada, capturas (Fase 7), diseño final, revisar en el celular.
+
 ## Lista de verificación de pendientes
 
 Marca con `x` cuando esté hecho y anota la fecha en la entrada correspondiente.
@@ -29,9 +38,9 @@ Marca con `x` cuando esté hecho y anota la fecha en la entrada correspondiente.
 - [x] Repositorio público creado y `origin` apunta a **mi** usuario (`git remote -v`)
 - [x] GitHub Pages **activado** y el workflow en `success` (`gh run list`)
 - [x] https://Criss1804.github.io/portafolio-progv/ abre con HTTP 200
-- [ ] Servicio de Render creado con plan **Free ($0)** y en estado **Live**
-- [ ] `portafolio/web/js/config.js` apunta a https://progv-criss1804.onrender.com y está subido
-- [ ] `perfil.js → origenes` incluye mi URL pública (y mi dominio, si uso uno)
+- [x] Servicio de Render creado con plan **Free ($0)** y en estado **Live**
+- [x] `portafolio/web/js/config.js` apunta a https://progv-criss1804.onrender.com y está subido
+- [x] `perfil.js → origenes` incluye mi URL pública (y mi dominio, si uso uno)
 - [ ] La página publicada muestra **“servidor en vivo”** y puedo ejecutar el lab 1 y el lab 8
 - [ ] **Capturas generadas** (`capturar.js`) y subidas (`capturas.js` + `img/capturas/`)
 - [ ] HTTPS activo (si uso dominio propio: `https_enforced=true`)
