@@ -29,7 +29,15 @@
 - `https://progv-criss1804.onrender.com/api/estado` → `"ok":true` (JDK 21 y Tomcat disponibles). La raíz responde 200.
 - CORS correcto: el servidor responde `access-control-allow-origin: https://criss1804.github.io`.
 - `portafolio/web/js/config.js` apunta al servidor de Render.
-- **Pendiente:** probar el lab 1 y un lab con servidor desde la página publicada, capturas (Fase 7), diseño final, revisar en el celular.
+- Probado desde la página publicada: arriba dice **«servidor en vivo»**; el lab 1 imprimió «Hola Programacion V» y el modelo Student (503 ms); el lab 8 arrancó («en línea») y `GET lista` devolvió las reservas en JSON.
+- **Pendiente:** capturas (Fase 7), diseño final, revisar en el celular.
+
+## 12/11/2026 — Capturas reales (Fase 7)
+
+- `capturar.js` contra Render: labs 1 y 2 (4 programas) OK; lab 7 (7 peticiones, incluida 201 → 409) y lab 8 (7 peticiones, de 200 a 204) con los códigos esperados.
+- Pantallazos revisados: `lab4-lista`, `lab4-nuevo`, `lab5-menu`, `lab5-articulos`, `lab5-existencias`.
+- Generados `portafolio/web/js/capturas.js` y `portafolio/web/img/capturas/`.
+- **Pendiente:** diseño final (minimalista claro, ya preparado en local), README y cierre, revisar en el celular.
 
 ## Lista de verificación de pendientes
 
@@ -41,8 +49,8 @@ Marca con `x` cuando esté hecho y anota la fecha en la entrada correspondiente.
 - [x] Servicio de Render creado con plan **Free ($0)** y en estado **Live**
 - [x] `portafolio/web/js/config.js` apunta a https://progv-criss1804.onrender.com y está subido
 - [x] `perfil.js → origenes` incluye mi URL pública (y mi dominio, si uso uno)
-- [ ] La página publicada muestra **“servidor en vivo”** y puedo ejecutar el lab 1 y el lab 8
-- [ ] **Capturas generadas** (`capturar.js`) y subidas (`capturas.js` + `img/capturas/`)
+- [x] La página publicada muestra **“servidor en vivo”** y puedo ejecutar el lab 1 y el lab 8
+- [x] **Capturas generadas** (`capturar.js`) y subidas (`capturas.js` + `img/capturas/`)
 - [ ] HTTPS activo (si uso dominio propio: `https_enforced=true`)
 - [ ] Mi **diseño propio** aplicado y revisado (contraste, “reducir movimiento”)
 - [ ] Revisado en un **celular real**
