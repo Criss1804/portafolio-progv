@@ -14,13 +14,21 @@
 - Problema: el primer `push` fue rechazado porque la sesión de `gh` no tenía el permiso `workflow` (necesario para `.github/workflows/pages.yml`). Solución: `gh auth refresh -h github.com -s workflow` (autorizado por mí en el navegador) y `gh auth setup-git`. Después el `push` a `main` funcionó.
 - **Pendiente:** aplicar mi diseño, activar GitHub Pages, desplegar en Render, conectar `config.js`, generar capturas, revisar en el celular.
 
+## 12/11/2026 — GitHub Pages activado (Fase 5)
+
+- Activado Pages con `build_type=workflow`; el workflow «Publicar portafolio en GitHub Pages» terminó en `success`.
+- https://criss1804.github.io/portafolio-progv/ devuelve **HTTP 200**.
+- Sin conflicto de dominio: no existe `Criss1804.github.io` con dominio personalizado.
+- Diseño minimalista claro preparado en local (portada simple, acento azul), **sin subir todavía**: decidí dejar el diseño para el final.
+- **Pendiente:** Render (Fase 6), `config.js`, capturas, diseño final, revisar en el celular.
+
 ## Lista de verificación de pendientes
 
 Marca con `x` cuando esté hecho y anota la fecha en la entrada correspondiente.
 
 - [x] Repositorio público creado y `origin` apunta a **mi** usuario (`git remote -v`)
-- [ ] GitHub Pages **activado** y el workflow en `success` (`gh run list`)
-- [ ] https://Criss1804.github.io/portafolio-progv/ abre con HTTP 200
+- [x] GitHub Pages **activado** y el workflow en `success` (`gh run list`)
+- [x] https://Criss1804.github.io/portafolio-progv/ abre con HTTP 200
 - [ ] Servicio de Render creado con plan **Free ($0)** y en estado **Live**
 - [ ] `portafolio/web/js/config.js` apunta a https://progv-criss1804.onrender.com y está subido
 - [ ] `perfil.js → origenes` incluye mi URL pública (y mi dominio, si uso uno)
