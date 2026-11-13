@@ -8,10 +8,19 @@ Portafolio web que reúne los **8 laboratorios** de Programación V: descripció
 
 | | |
 |---|---|
-| 🌐 **Portafolio publicado** | https://Criss1804.github.io/portafolio-progv/ |
+| 🌐 **Portafolio publicado** | https://criss1804.github.io/portafolio-progv/ |
 | ⚙️ **Servidor en vivo** (ejecuta los laboratorios) | https://progv-criss1804.onrender.com |
 
 > ⏱️ El servidor en vivo corre en un plan gratuito: si estuvo sin visitas, **tarda ~50 segundos en despertar**. Mientras tanto la página muestra las ejecuciones grabadas y se conecta sola. Funciona desde computadora y celular.
+
+## Diseño: «Travesía espacial»
+
+El portafolio es un viaje entre planetas: **cada laboratorio es un planeta** con nombre y color propios (Génesis, Dualis, Nexo, Verdant, Stratos, Códice, Pulsar, Órbita).
+
+- **Portada:** bitácora de misión y un sistema solar 3D interactivo (los planetas orbitan y llevan a su laboratorio).
+- **Índice «Carta de navegación»:** ruta en zigzag con una nave que avanza al bajar.
+- **Fondo:** nebulosa en CSS y campo de estrellas en un solo `<canvas>` (`js/espacio.js`) con parallax y estrellas fugaces.
+- **Ligero:** solo se animan `transform` y `opacity`, el fondo se pausa con la pestaña oculta, y con «reducir movimiento» todo queda quieto.
 
 ## Los 8 laboratorios
 
@@ -33,7 +42,7 @@ Los laboratorios 4, 5 y 8 comparten el puerto 8080: se ejecuta **uno a la vez**.
 ```
 .
 ├─ portafolio/
-│  ├─ web/                 página (HTML/CSS/JS): index.html, css/, js/ (perfil.js, config.js, main.js, ojo.js…)
+│  ├─ web/                 página (HTML/CSS/JS): index.html, css/, js/ (perfil.js, config.js, main.js, espacio.js…)
 │  ├─ server.js            servidor que ejecuta los labs en vivo (Node, sin dependencias)
 │  └─ scripts/             capturar.js (ejecuciones reales) y build-codigo.js (visor de código)
 ├─ prog-v/                 código, SQL y enunciados de los 8 laboratorios (laboratorio1 … laboratorio8)

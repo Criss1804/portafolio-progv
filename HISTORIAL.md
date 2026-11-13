@@ -49,6 +49,13 @@
 - Rendimiento y accesibilidad: solo se animan `transform` y `opacity`; con «reducir movimiento» todo queda quieto.
 - **Pendiente:** README y cierre (Fase 8), revisar en el celular.
 
+## 12/11/2026 — Cierre (Fase 8)
+
+- README actualizado: URL pública en minúsculas, sección del diseño «Travesía espacial» y `espacio.js` en la estructura.
+- Eliminado `portafolio/web/js/ojo.js` (fondo del diseño de la plantilla; ya no se usaba).
+- Verificación final: repositorio `Criss1804/portafolio-progv` **público**; Pages responde **200**; Render `/api/estado` responde `"ok":true`; CORS acepta `https://criss1804.github.io`; 5 capturas publicadas; `cedula: ""` (no se muestra).
+- **Pendiente:** revisar la página en un celular real y abrir el servidor ~5 minutos antes de presentar.
+
 ## Lista de verificación de pendientes
 
 Marca con `x` cuando esté hecho y anota la fecha en la entrada correspondiente.
@@ -61,10 +68,10 @@ Marca con `x` cuando esté hecho y anota la fecha en la entrada correspondiente.
 - [x] `perfil.js → origenes` incluye mi URL pública (y mi dominio, si uso uno)
 - [x] La página publicada muestra **“servidor en vivo”** y puedo ejecutar el lab 1 y el lab 8
 - [x] **Capturas generadas** (`capturar.js`) y subidas (`capturas.js` + `img/capturas/`)
-- [ ] HTTPS activo (si uso dominio propio: `https_enforced=true`)
+- [x] HTTPS activo (si uso dominio propio: `https_enforced=true`)
 - [x] Mi **diseño propio** aplicado y revisado (contraste, “reducir movimiento”)
 - [ ] Revisado en un **celular real**
-- [ ] `README.md` con mis URLs correctas y `HISTORIAL.md` al día
+- [x] `README.md` con mis URLs correctas y `HISTORIAL.md` al día
 - [ ] Abrí el servidor ~5 minutos antes de la presentación (el plan gratis duerme a los 15 min)
 
 ## Plantilla para nuevas entradas
