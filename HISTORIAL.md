@@ -39,6 +39,16 @@
 - Generados `portafolio/web/js/capturas.js` y `portafolio/web/img/capturas/`.
 - **Pendiente:** diseño final (minimalista claro, ya preparado en local), README y cierre, revisar en el celular.
 
+## 12/11/2026 — Diseño propio: «Travesía espacial» (Fase 4)
+
+- Descarté el minimalista claro y pedí un diseño totalmente distinto al de la plantilla: tema espacial oscuro, interactivo y ligero.
+- Fondo: nebulosa en CSS + campo de estrellas en un solo `<canvas>` (`js/espacio.js`) con parallax al bajar y al mover el cursor, titileo y estrellas fugaces; se pausa con la pestaña oculta.
+- Portada: bitácora de misión (nombre en degradado, botones «Iniciar viaje» y «Aterrizar en el planeta 01», telemetría) y un sistema solar 3D con 8 planetas en órbita que enlazan a cada laboratorio.
+- Índice «Carta de navegación»: ruta en zigzag con una nave que avanza al bajar. Cada lab es un planeta con nombre y color propios (Génesis, Dualis, Nexo, Verdant, Stratos, Códice, Pulsar, Órbita).
+- Labs: tramo «03 → 04», planeta grande con parallax, tarjetas de datos y consola con el color del planeta. Tipografía Space Grotesk.
+- Rendimiento y accesibilidad: solo se animan `transform` y `opacity`; con «reducir movimiento» todo queda quieto.
+- **Pendiente:** README y cierre (Fase 8), revisar en el celular.
+
 ## Lista de verificación de pendientes
 
 Marca con `x` cuando esté hecho y anota la fecha en la entrada correspondiente.
@@ -52,7 +62,7 @@ Marca con `x` cuando esté hecho y anota la fecha en la entrada correspondiente.
 - [x] La página publicada muestra **“servidor en vivo”** y puedo ejecutar el lab 1 y el lab 8
 - [x] **Capturas generadas** (`capturar.js`) y subidas (`capturas.js` + `img/capturas/`)
 - [ ] HTTPS activo (si uso dominio propio: `https_enforced=true`)
-- [ ] Mi **diseño propio** aplicado y revisado (contraste, “reducir movimiento”)
+- [x] Mi **diseño propio** aplicado y revisado (contraste, “reducir movimiento”)
 - [ ] Revisado en un **celular real**
 - [ ] `README.md` con mis URLs correctas y `HISTORIAL.md` al día
 - [ ] Abrí el servidor ~5 minutos antes de la presentación (el plan gratis duerme a los 15 min)

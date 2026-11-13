@@ -107,8 +107,9 @@
 
   /* ============ UTILIDADES DE INTERFAZ ============ */
   const SET = '!<>-_\\/[]{}=+*^?#0123456789ABCDEF';
+  const DESCIFRAR = false;           // diseño minimalista: títulos sin efecto de «descifrado»
   function decrypt(el, ms = 900) {
-    if (reduce) return;
+    if (reduce || !DESCIFRAR) return;
     const fin = el.dataset.final || (el.dataset.final = el.textContent);
     if (el._dec) cancelAnimationFrame(el._dec);
     const t0 = performance.now(), n = fin.length;
@@ -174,70 +175,73 @@
     const ini = P.nombre.split(/\s+/).filter(Boolean).map(w => w[0]).join('').slice(0, 3).toUpperCase();
     $('#brand span').textContent = `${ini} / ${P.materia.replace(/\s+/g, '-').toUpperCase()}`;
     $('#h1').textContent = `${P.nombre} — Portafolio de ${P.materia}`;
-    $('#pie').innerHTML = `<p><b>${esc(P.nombre)}</b>${P.cedula ? ' · ' + esc(P.cedula) : ''} · ${esc(P.materia)} · Prof. ${esc(P.profesor)} · ${esc(P.universidad)}</p><p>Hecho con HTML, CSS y JavaScript puros${P.github ? ' · <a href="https://github.com/' + esc(P.github) + '" style="color:var(--acc)">github.com/' + esc(P.github) + '</a>' : ''}</p>`;
-    $('#indiceTitulo').textContent = `${NUM[LABS.length] || LABS.length} laboratorios, un solo lugar`;
+    $('#pie').innerHTML = `<p class="fin">— Fin de la transmisión —</p><p><b>${esc(P.nombre)}</b>${P.cedula ? ' · ' + esc(P.cedula) : ''} · ${esc(P.materia)} · Prof. ${esc(P.profesor)} · ${esc(P.universidad)}</p><p>Hecho con HTML, CSS y JavaScript puros${P.github ? ' · <a href="https://github.com/' + esc(P.github) + '" style="color:var(--acc)">github.com/' + esc(P.github) + '</a>' : ''}</p>`;
+    $('#indiceTitulo').textContent = `${NUM[LABS.length] || LABS.length} planetas, una sola travesía`;
   }
 
+  /* ============ TEMA ESPACIAL: cada laboratorio es un planeta ============ */
+  const ASTROS = {
+    lab1: { nombre: 'Génesis', c: '#fcd59a', c2: '#c2410c' },
+    lab2: { nombre: 'Dualis',  c: '#fda4af', c2: '#9f1239' },
+    lab3: { nombre: 'Nexo',    c: '#a5f3fc', c2: '#0e7490', anillo: true },
+    lab4: { nombre: 'Verdant', c: '#a7f3d0', c2: '#047857' },
+    lab5: { nombre: 'Stratos', c: '#ddd6fe', c2: '#6d28d9', anillo: true },
+    lab6: { nombre: 'Códice',  c: '#fef08a', c2: '#a16207' },
+    lab7: { nombre: 'Pulsar',  c: '#fbcfe8', c2: '#be185d' },
+    lab8: { nombre: 'Órbita',  c: '#bfdbfe', c2: '#1d4ed8', anillo: true },
+  };
+  const astro = l => ASTROS[l.id] || { nombre: 'Planeta ' + l.n, c: '#c7d2fe', c2: '#4338ca' };
+  const pv = l => { const a = astro(l); return `--p:${a.c};--p2:${a.c2}`; };
+  const COHETE = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 2c3 2.2 4.6 5.6 4.6 9.4V15l1.9 2.6-.9 2.2-2.6-1.3H9l-2.6 1.3-.9-2.2L7.4 15v-3.6C7.4 7.6 9 4.2 12 2zm0 6.3a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8z"/><path fill="#fb923c" d="M10.3 19.5h3.4L12 23z"/></svg>';
+
+  /* Portada: bitácora de misión + sistema planetario interactivo (cada planeta lleva a su laboratorio). */
   function buildHero() {
-    const kw = t => `<span class="t-k">${t}</span>`, ty = t => `<span class="t-t">${t}</span>`, fn = t => `<span class="t-f">${t}</span>`;
-    const nu = t => `<span class="t-n">${t}</span>`, cm = t => `<span class="t-c">${esc(t)}</span>`, q = t => `<span class="t-s">"${esc(t)}"</span>`;
-    const L = [], add = (plain, html, href) => L.push({ plain, html: html == null ? esc(plain) : html, href });
-    add(`// Portafolio · ${P.materia} · ${P.siglas || P.universidad} · ${P.anio}`, cm(`// Portafolio · ${P.materia} · ${P.siglas || P.universidad} · ${P.anio}`));
-    add('public class Portafolio {', `${kw('public')} ${kw('class')} ${ty('Portafolio')} {`);
-    add(`    String estudiante = "${P.nombre}";`, `    ${ty('String')} estudiante = ${q(P.nombre)};`);
-    if (P.cedula) add(`    String cedula = "${P.cedula}";`, `    ${ty('String')} cedula = ${q(P.cedula)};`);
-    add(`    String profesor = "${P.profesor}";`, `    ${ty('String')} profesor = ${q(P.profesor)};`);
-    add('    public static void main(String[] args) {', `    ${kw('public')} ${kw('static')} ${kw('void')} ${fn('main')}(${ty('String')}[] args) {`);
-    add('        Lab[] labs = {', `        ${ty('Lab')}[] labs = {`);
-    LABS.forEach((l, i) => { const t = cut(l.titulo, 34); add(`            new Lab(${i + 1}, "${t}"),`, `            ${kw('new')} ${ty('Lab')}(${nu(i + 1)}, ${q(t)}),`, '#' + l.id); });
-    add('        };', null);
-    add('        entrar(labs);', `        ${fn('entrar')}(labs);`, '#indice');
-    add('    }', null); add('}', null);
-
-    const rows = L.map((r, i) => {
-      const n = Math.max(1, r.plain.length), st = `style="--n:${n};--d:${i * 65}ms;--dur:${Math.min(520, 70 + n * 11)}ms"`;
-      const inner = r.html || '&#8203;';
-      return r.href ? `<a class="il cl" href="${r.href}" ${st}>${inner}</a>` : `<span class="il" ${st}>${inner}</span>`;
+    const partes = P.nombre.trim().split(/\s+/), ult = partes.length > 1 ? partes.pop() : '';
+    const conServidor = LABS.filter(l => l.live).length;
+    const orbitas = LABS.map((l, i) => {
+      const a = astro(l), r = 22 + i * 9.5, t = 26 + i * 9, ang = (i * 137) % 360;
+      return `<div class="orbita" style="--r:${r}%;--t:${t}s;--a:${ang}deg"><a class="astro${a.anillo ? ' anillo' : ''}" href="#${l.id}" style="${pv(l)}" aria-label="Laboratorio ${l.n}: ${esc(l.titulo)}"><span class="tip">${l.n} · ${esc(a.nombre)}</span></a></div>`;
     }).join('');
-    $('#heroIn').innerHTML = `<div class="ide" id="ide">
-      <div class="ide-bar"><i></i><i></i><i></i><span>Portafolio.java</span><em>${esc(P.materia)}</em></div>
-      <div class="ide-body"><code>${rows}</code></div>
-      <div class="ide-foot"><span class="dot on"></span><span>compilado sin errores · ${LABS.length} laboratorios</span><a class="run" href="#indice">▶ Run</a></div>
-    </div>`;
-
-    // Interacción con el entorno: la ventana se inclina hacia el cursor, una luz la recorre y los clics lanzan ondas en el fondo.
-    const hero = $('#inicio'), ide = $('#ide');
-    if (!reduce) {
-      hero.addEventListener('pointermove', e => {
-        const r = hero.getBoundingClientRect(), dx = (e.clientX - r.left) / r.width - .5, dy = (e.clientY - r.top) / Math.min(r.height, innerHeight) - .5;
-        ide.style.setProperty('--ry', (dx * 7).toFixed(2) + 'deg'); ide.style.setProperty('--rx', (-dy * 5).toFixed(2) + 'deg');
-        const b = ide.getBoundingClientRect(); ide.style.setProperty('--sx', (e.clientX - b.left) + 'px'); ide.style.setProperty('--sy', (e.clientY - b.top) + 'px');
-      }, { passive: true });
-      hero.addEventListener('pointerleave', () => { ide.style.setProperty('--rx', '0deg'); ide.style.setProperty('--ry', '0deg'); });
-    }
-    ide.addEventListener('click', e => { const a = e.target.closest('a'); if (a) window.dispatchEvent(new CustomEvent('ojo:pulso', { detail: { x: e.clientX, y: e.clientY } })); });
+    $('#heroIn').innerHTML = `
+      <div class="hero-txt">
+        <p class="kicker rv"><span class="blink"></span>Bitácora de misión · ${esc(String(P.anio))}</p>
+        <p class="hero-name rv">${esc(partes.join(' '))}${ult ? ` <span>${esc(ult)}</span>` : ''}</p>
+        <p class="hero-sub rv">${esc(P.materia)} · ${esc(P.universidad)}</p>
+        <p class="hero-meta rv">Una travesía por ${LABS.length} planetas. Cada uno es un laboratorio con su código fuente, su ejecución en vivo y sus documentos. Prof. ${esc(P.profesor)}.</p>
+        <div class="hero-cta rv"><a class="btn-launch" href="#indice">${COHETE}<span>Iniciar viaje</span></a><a class="btn-ghost" href="#${LABS[0].id}">Aterrizar en el planeta ${LABS[0].n}</a></div>
+        <dl class="telemetria rv"><div><dt>Planetas</dt><dd>${LABS.length}</dd></div><div><dt>Con servidor</dt><dd>${conServidor}</dd></div><div><dt>Ciclo</dt><dd>${esc(String(P.anio))}</dd></div></dl>
+      </div>
+      <div class="sistema" aria-label="Sistema planetario de laboratorios"><div class="plano"><div class="sol"></div>${orbitas}</div></div>`;
   }
 
+  /* Índice: carta de navegación, una ruta con una parada por planeta y una nave que avanza al bajar. */
   function buildIndex() {
-    $('#cards').innerHTML = LABS.map(l => `
-      <a class="card rv" href="#${l.id}" data-lab="${l.id}">
-        <div class="n"><span>${l.n}</span><span class="dot" data-dot="${l.live && l.live.svc ? l.live.svc : ''}" ${l.live && l.live.svc ? '' : 'hidden'}></span></div>
-        <h3>${esc(l.titulo)}</h3><p>${esc(l.corto)}</p><span class="go">Ver laboratorio →</span>
-      </a>`).join('');
-    $('#rail').innerHTML = `<a href="#inicio" data-t="inicio" aria-label="Portada">INICIO</a><a href="#indice" data-t="indice" aria-label="Índice">ÍNDICE</a>` +
-      LABS.map(l => `<a href="#${l.id}" data-t="${l.id}" aria-label="${esc(l.titulo)}">${l.n}</a>`).join('');
+    $('#cards').innerHTML = `<div class="ruta" aria-hidden="true"><span class="nave" id="nave">${COHETE}</span></div>` + LABS.map((l, i) => {
+      const a = astro(l);
+      return `
+      <a class="card rv ${i % 2 ? 'der' : 'izq'}" href="#${l.id}" data-lab="${l.id}" style="${pv(l)}">
+        <span class="mini${a.anillo ? ' anillo' : ''}" aria-hidden="true"></span>
+        <div class="n"><span>Planeta ${l.n} · ${esc(a.nombre)}</span><span class="dot" data-dot="${l.live && l.live.svc ? l.live.svc : ''}" ${l.live && l.live.svc ? '' : 'hidden'}></span></div>
+        <h3>${esc(l.titulo)}</h3><p>${esc(l.corto)}</p><span class="go">Aterrizar →</span>
+      </a>`;
+    }).join('');
+    $('#rail').innerHTML = `<a href="#inicio" data-t="inicio" aria-label="Portada" style="--p:#e7e9ff">Base</a><a href="#indice" data-t="indice" aria-label="Carta de navegación" style="--p:#e7e9ff">Ruta</a>` +
+      LABS.map(l => `<a href="#${l.id}" data-t="${l.id}" aria-label="${esc(l.titulo)}" style="${pv(l)}">${l.n} · ${esc(astro(l).nombre)}</a>`).join('');
   }
 
-  function labHTML(l) {
+  function labHTML(l, i) {
     const tabs = [];
     if (l.codigo) tabs.push(['code', 'Código fuente']);
     if (l.live) tabs.push(['live', 'En vivo']);
     if (l.docs.length) tabs.push(['docs', 'Documentos']);
+    const a = astro(l), prev = i > 0 ? LABS[i - 1].n : 'Base';
     return `
-    <section class="blk lab" id="${l.id}" data-lab="${l.id}">
+    <section class="blk lab" id="${l.id}" data-lab="${l.id}" style="${pv(l)}">
+      <div class="tramo rv" aria-hidden="true"><span>${prev}</span><i></i><b>${COHETE}</b><i></i><span>${l.n}</span></div>
       <div class="lab-head">
-        <div class="bignum rv">${l.n}</div>
+        <div class="astro-lab rv"><div class="planeta${a.anillo ? ' anillo' : ''}"></div><span class="coord">PV-${l.n} · ${esc(a.nombre)}</span></div>
         <div class="rv">
+          <p class="eyebrow">Planeta ${l.n} · Aterrizaje</p>
           <div class="chips">${l.tags.map(([t, k]) => `<span class="chip ${k || ''}">${esc(t)}</span>`).join('')}</div>
           <h3 data-decrypt>${esc(l.titulo)}</h3>
           <p>${esc(l.resumen)}</p>
@@ -446,7 +450,7 @@
   }
 
   function buildLabs() {
-    $('#labs').innerHTML = LABS.map(labHTML).join('');
+    $('#labs').innerHTML = LABS.map((l, i) => labHTML(l, i)).join('');
     LABS.forEach(l => {
       const sec = $('#' + l.id);
       const mounters = { code: mountCode, live: mountLive, docs: mountDocs };
